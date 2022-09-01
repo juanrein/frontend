@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password generator</title>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Password generator</h1>
+    <div id="password-container" class="row">
+        <input placeholder="P4$5W0rD!" type="text" name="pw" id="pw" readonly>
+        <img id="copy" src="images/copy.png" alt="">
+    </div>
+    <form id="pw-form">
+        <div>
+            <div class="row">
+                <p id="character-length-text">Character length</p>
+                <p id="character-length">10</p> 
+            </div>
+            <input type="range" min="0" max="20" value="10" name="length" id="length">
+        </div>
+        <label>
+            <input type="checkbox" checked name="uppercase" id="uppercase">
+            Include uppercase letters
+        </label>
+        <label>
+            <input type="checkbox" checked name="lowercase" id="lowercase">
+            Include lowercase letters
+        </label>
+        <label>
+            <input type="checkbox" checked name="numbers" id="numbers">
+            Include numbers
+        </label>
+        <label>
+            <input type="checkbox" name="symbols" id="symbols">
+            Include symbols
+        </label>
+
+        <div id="strength-container" class="row">
+            <p id="strength-text">Strength</p>
+            <div class="row">
+                <p id="strength">Weak</p>
+                <div id="strength-bars">
+                    <div id="bar1" class="active"></div>
+                    <div id="bar2" class="active"></div>
+                    <div id="bar3" class="non-active"></div>
+                    <div id="bar4" class="non-active"></div>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" value="Generate &#10141;">
+    </form>
+
+</body>
+</html>

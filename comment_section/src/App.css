@@ -1,0 +1,268 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(248 248 248);
+}
+
+
+.App {
+    margin: 0;
+}
+
+.comment-container {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 1em;
+    background-color: white;
+    padding: 1em;
+    align-items: flex-start;
+}
+
+
+.you {
+    background-color: blue;
+    color: white;
+    padding: 0.25em 0.5em;
+}
+
+.comment-score-container {
+    padding: 0em 0.5em;
+    background-color: rgb(248 248 248);
+    margin: 0em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.icon-plus, .icon-minus {
+    width: 1em;
+}
+
+.icon-minus {
+    height: auto;
+    margin-left: 1em;
+}
+
+.icon-plus {
+    margin-right: 1em;
+}
+
+.icons button:first-child {
+    margin-right: 1em;
+}
+
+.score {
+    font-size: large;
+    text-align: center;
+    font-weight: 600;
+}
+
+.comment-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.comment-info-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.comment-info-left img {
+    width: 40px;
+    height: 40px;
+}
+
+.comment-info-left > * {
+    margin-right: 0.5em;
+}
+
+.replies-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.replies-indent {
+    border-left: 1px solid black;
+    margin-left: 5%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+
+.modify {
+    display: flex;
+    flex-direction: row;
+}
+
+form img {
+    grid-area: image;
+}
+
+form textarea {
+    grid-area: textarea;
+}
+
+form input {
+    grid-area: input;
+}
+
+
+form {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    grid-template-columns: auto;
+    grid-template-areas: 
+        "textarea textarea"
+        "image input";
+
+    row-gap: 1em;
+
+    margin: 1em;
+}
+
+
+
+
+input[type=submit] {
+    background-color: blue;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 1em;
+}
+
+textarea {
+    padding: 1em;
+    width: 100%;
+}
+
+
+.action-button {
+    background-color: inherit;
+    border: none;
+}
+
+.action-button:hover {
+    color: lightgray;
+}
+
+.modal-background {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(128, 128, 128, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 60vw;
+    background-color: white;
+
+    margin: 0;
+    padding: 1em;
+}
+
+.yes-button {
+    background-color: darkkhaki;
+}
+
+.no-button {
+    background-color: purple;
+    margin-right: 1em;
+}
+
+.yes-button, .no-button {
+    color: white;
+    padding: 1em 2em;
+    border-radius: 1em;
+    text-transform: uppercase;
+    border: none;
+}
+
+@media screen and (min-width: 700px) {
+    .App {
+        margin: 1em;
+    }
+
+    .comment-container {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1em;
+        background-color: white;
+        padding: 1em;
+    }
+
+    .comment-score-container {
+        padding: 1em 0.5em;
+        background-color: rgb(248 248 248);
+        margin: 1em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .icon-plus, .icon-minus {
+        width: 2em;
+        margin: 0;
+    }
+    
+    .icons button:first-child {
+        margin-right: 1em;
+    }
+    
+    .replies-indent {
+        width: 5%;
+        border-left: 1px solid black;
+        margin-left: calc(2.5% + 1em);
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    .replies {
+        width: 95%;
+    }
+
+    .comment-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .comment-info-left {
+        margin: 0;
+    }
+
+    .comment-info-left > * {
+        margin-right: 1em;
+    }
+
+    form {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+    
+        padding: 1em;
+        margin: 1em 0;
+        background-color: white;
+    }
+
+    textarea {
+        padding: 1em;
+        width: 80%;
+    }
+    
+}

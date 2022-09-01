@@ -1,0 +1,50 @@
+:root {
+    --bar-color-selected: rgb(118 181 188);
+    --bar-color: rgb(236 117 93);
+    --bg-color: rgb(247 233 220);
+    --bg-color2: rgb(255 252 247);
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+main {
+    background-color: var(--bg-color2);
+}
+
+header {
+    color: var(--bg-color2);
+}
+
+strong {
+    font-size: larger;
+}
+
+header, main {
+    border-radius: 1em;
+    padding: 1em;
+}
+
+main p {
+    color: rgb(162, 160, 157);
+}
+
+header, #stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#stats {
+    margin-top: 1em;
+}
+
+header {
+    background-color: var(--bar-color);
+}
+
+p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}

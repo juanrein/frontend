@@ -1,0 +1,178 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+
+h1 {
+    text-align: center;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#clients-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+button {
+    background-color: black;
+    color: white;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+#header-left {
+    display: flex;
+    flex-direction: row;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#hero-container img {
+    width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#menu-icon-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu-close {
+    padding: 0.5em;
+}
+
+.hamburger-open {
+    position: fixed;
+    width: 80vw;
+    top: 0;
+    left: 20vw;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -20vw 0 0 0 rgba(0,0,0, 0.6);
+}
+
+#links > * {
+    margin-left: 1em;
+}
+
+.nav-multilevel ul {
+    margin-left: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.register {
+    border: 1px solid black;
+    padding: 0.5em;
+    border-radius: 1em;
+    width: 80%;
+    text-align: center;
+}
+
+nav ul li {
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.closed ul {
+    display: none;
+}
+
+@media screen and (min-width: 600px) {
+    h1 {
+        font-size: 60px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+    header {
+        padding: 1em 0.5em;
+    }
+
+    main {
+        display: flex;
+        flex-direction: row;
+    }
+
+    p {
+        line-height: 1.5;
+    }
+
+    #links {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: row;
+    }
+
+    nav ul li {
+        margin-right: 1em;
+        margin-top: 0;
+    }
+
+    #login {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .register {
+        width: auto;
+        margin-left: 1em;
+    }
+
+    main > * {
+        padding: 2em;
+    }
+
+    #main-content {
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    #main-content button {
+        margin-bottom: 1em
+    }
+}
