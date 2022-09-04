@@ -1,0 +1,164 @@
+#crew {
+    background-image: url(./images/background-crew-mobile.jpg);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+h1 {
+    font-size: 40px;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+p,
+h2 {
+    color: darkturquoise;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0;
+}
+
+.dot {
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    border: 1px solid white;
+}
+
+.dot .tabs-controls-active {
+    background-color: white;
+}
+
+
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.number {
+    font-size: 150%;
+}
+
+#crew .tabs-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+#crew .tabs-controls > div {
+    margin-right: 1em;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#crew .tabs-controls-active {
+    border-bottom: 1px solid white;
+    background-color: white;
+}
+
+#crew .tabs-controls div:hover {
+    color: cadetblue;
+}   
+
+#crew .crew-member {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#crew .hero {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+#crew img {
+    width: 80%;
+}
+
+
+
+@media screen and (min-width: 500px) {
+    #crew .tabs-controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-top: 2em;
+    }
+    
+    #crew .tabs-controls > div {
+        margin-right: 1em;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    
+    #crew .tabs-controls-active {
+        border-bottom: 1px solid white;
+        background-color: white;
+    }
+    
+    #crew .tabs-controls div:hover {
+        color: cadetblue;
+    }   
+    
+    #crew .crew-member {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: end;
+    }
+    
+    
+    #crew .tabs {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    #crew {
+        background-image: url(./images/background-crew-tablet.jpg);
+    }
+
+    h1 {
+        text-align: start;
+    }
+
+    p,
+    h2 {
+        text-align: start;
+    }
+
+
+
+    #crew .main-h1 {
+        margin-left: 5%;
+    }
+
+    #crew .tabs {
+        margin: 5%;
+    }
+
+
+    #crew .crew-member img {
+        width: 50%;
+    }
+    
+    #crew .hero {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 50%;
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    #crew {
+        background-image: url(./images/background-crew-desktop.jpg);
+    }
+
+}

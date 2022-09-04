@@ -1,0 +1,111 @@
+#destination {
+    background-image: url(./images/background-destination-mobile.jpg);
+}
+
+h1 {
+    font-size: 40px;
+    margin: 0 0 1rem 0;
+}
+
+p,
+h2 {
+    color: darkturquoise;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.number {
+    font-size: 150%;
+}
+
+
+#destination .tabs-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+#destination .tabs-controls > div {
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+#destination .tabs-controls-active {
+    border-bottom: 1px solid white;
+}
+
+#destination .tabs-controls div:hover {
+    color: cadetblue;
+}
+
+.planet {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.planet img {
+    width: 50%;
+}
+
+@media screen and (min-width: 500px) {
+    #destination {
+        background-image: url(./images/background-destination-tablet.jpg);
+    }
+
+    .main-h1 {
+        margin-left: 5%;
+    }
+
+    .planet h1 {
+        font-size: 80px;
+    }
+
+    #destination .tabs {
+        margin-right: 5%;
+    }
+
+    #destination .tabs-controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+    }
+    
+    #destination .tabs-controls > div {
+        margin-right: 1em;
+        cursor: pointer;
+    }
+    
+    #destination .tabs-controls-active {
+        border-bottom: 1px solid white;
+    }
+    
+    #destination .tabs-controls div:hover {
+        color: cadetblue;
+    }
+    
+    .planet {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+    }
+    
+    .planet img {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    #destination {
+        background-image: url(./images/background-destination-desktop.jpg);
+    }
+}

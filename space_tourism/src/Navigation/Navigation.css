@@ -1,0 +1,73 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+#nav-right {
+    width: 60%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#nav-links {
+    display: flex;
+    flex-direction: column;
+    background-color: cadetblue;
+    padding: 1em 1em;
+}
+
+
+#nav-links a {
+    margin-bottom: 1em;
+}
+
+#nav-links a:hover {
+    color: lightgray;
+}
+
+#nav-hamburger-icons {
+    align-self: flex-end;
+    padding: 1em;
+}
+
+.active-link {
+    border-bottom: 1px solid white;
+}
+
+@media screen and (min-width: 500px) {
+    nav {
+        padding: 2em 0 2em 2em;
+    }
+
+    #nav-right {
+        position: static;
+    }
+
+
+    #nav-links {
+        display: flex;
+        flex-direction: row;
+        background-color: rgb(95, 158, 160, 0.4);
+        padding: 1.5em 1.5em 1.5em 1.5em;
+    }
+
+
+    #nav-links a {
+        margin: 0 1em 0 0;
+    }
+}
