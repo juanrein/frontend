@@ -1,0 +1,28 @@
+<div class="button-container">
+    <button 
+        class="latex-button"
+        *ngFor="let kv of getSymbols()" 
+        type="button" 
+        title="{{kv[1]['text']}}" 
+        (mousedown)="handleSymbol(kv[0])">
+        {{kv[0]}}
+    </button>
+</div>
+
+<div class="container">
+    <div class="input">
+        <h2>Input</h2>
+        <div>
+            <div #mqfield></div>
+        </div>
+    </div>
+
+    <div class="output">
+        <h2>Latex</h2>
+        <textarea name="output" id="output" cols="30" rows="10" [formControl]="output">
+        </textarea>
+    </div>
+</div>
+
+
+<button>Save</button>
