@@ -9,6 +9,8 @@
     </button>
 </div>
 
+Active editor: {{activeEditor}}
+
 <div class="container">
     <div class="input">
         <h2>Input</h2>
@@ -19,7 +21,10 @@
 
     <div class="output">
         <h2>Latex</h2>
-        <textarea name="output" id="output" cols="30" rows="10" [formControl]="output">
+        <textarea name="output" #output cols="30" rows="10" 
+            (click)="handleLatexFocus()" 
+            (keyup)="handleLatexInput()" 
+            [formControl]="outputControl">
         </textarea>
     </div>
 </div>

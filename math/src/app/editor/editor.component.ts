@@ -3,6 +3,10 @@ import { FormControl } from '@angular/forms';
 import { SymbolMapping } from 'src/symbolMapping';
 // import * as MathQuill from "mathquill-0.10.1"
 
+enum ActiveEditorType {
+  Visual = "visual",
+  Latex = "latex"
+}
 
 @Component({
   selector: 'app-editor',
@@ -12,18 +16,20 @@ import { SymbolMapping } from 'src/symbolMapping';
 export class EditorComponent {
   @Input() symbols: SymbolMapping = {};
 
-  output = new FormControl("");
-
+  outputControl = new FormControl("");
+  @ViewChild("output") output!: ElementRef<HTMLTextAreaElement>;
   mathField: any;
 
   @ViewChild("mqfield") mqinput!: ElementRef<HTMLElement>;
-
   MQ: any;
 
+  activeEditor: ActiveEditorType = ActiveEditorType.Visual;
+
   editHandler(field: any) {
-    console.log(field)
-    let latex = field.latex();
-    this.output.setValue(latex);
+    if (this.activeEditor === ActiveEditorType.Visual) {
+      let latex = field.latex();
+      this.outputControl.setValue(latex);
+    }
   }
 
   enterHandler(field: any) {
@@ -32,6 +38,9 @@ export class EditorComponent {
 
   ngAfterViewInit() {
     let elem = this.mqinput.nativeElement;
+    elem.addEventListener("click", (e: MouseEvent) => {
+      this.activeEditor = ActiveEditorType.Visual;
+    })
     let config = {
       spaceBehavesLikeTab: true,
       handlers: {
@@ -40,7 +49,7 @@ export class EditorComponent {
       }
     };
     this.MQ = MathQuill.getInterface(2);
-    let field = this.MQ.MathField(elem, config)
+    let field = this.MQ.MathField(elem, config);
     this.mathField = field;
   }
 
@@ -53,14 +62,31 @@ export class EditorComponent {
    */
   handleSymbol(name: string) {
     let { latex } = this.symbols[name];
-    this.mathField.write(latex);
+    if (this.activeEditor === ActiveEditorType.Visual) {
+      this.mathField.write(latex);
+    }
+    else if (this.activeEditor === ActiveEditorType.Latex) {
+      //insert at current cursor position in the textarea
+      let pos = this.output.nativeElement.selectionStart;
+      let oldValue = this.outputControl.value;
+      let newValue = oldValue?.slice(0, pos) + latex + oldValue?.slice(pos);
+      this.outputControl.setValue(newValue);
+    }
     // console.log(this.mathField);
     // console.log(this.mathField.el());
     // this.mathField.focus();
     
   }
 
+  handleLatexFocus() {
+    this.activeEditor = ActiveEditorType.Latex;
+  }
+
+  handleLatexInput() {
+    this.mathField.latex(this.outputControl.value);
+  }
+
   ngOnInit() {
-    this.output.disable()
+    // this.output.disable()
   }
 }
