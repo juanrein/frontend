@@ -44,7 +44,7 @@ export class EditorComponent {
     let config = {
       spaceBehavesLikeTab: true,
       handlers: {
-        edit: (field:any) => this.editHandler(field),
+        edit: (field: any) => this.editHandler(field),
         enter: (field: any) => this.enterHandler(field)
       }
     };
@@ -75,7 +75,7 @@ export class EditorComponent {
     // console.log(this.mathField);
     // console.log(this.mathField.el());
     // this.mathField.focus();
-    
+
   }
 
   handleLatexFocus() {
@@ -86,7 +86,8 @@ export class EditorComponent {
     this.mathField.latex(this.outputControl.value);
   }
 
-  ngOnInit() {
-    // this.output.disable()
-  }
+  // ngOnInit() {
+  //   //implememts
+  //   // this.output.disable()
+  // }
 }
