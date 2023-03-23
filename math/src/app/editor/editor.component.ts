@@ -1,93 +1,135 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SymbolMapping } from 'src/symbolMapping';
-// import * as MathQuill from "mathquill-0.10.1"
+import { AdItem } from '../adbanner/adbanner.component';
+import { AdserviceService } from '../adservice.service';
+import { FormulaEditorComponent } from '../formula-editor/formula-editor.component';
 
-enum ActiveEditorType {
-  Visual = "visual",
-  Latex = "latex"
-}
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+    selector: 'app-editor',
+    templateUrl: './editor.component.html',
+    styleUrls: ['./editor.component.css']
 })
-export class EditorComponent {
-  @Input() symbols: SymbolMapping = {};
+export class EditorComponent implements OnInit {
 
-  outputControl = new FormControl("");
-  @ViewChild("output") output!: ElementRef<HTMLTextAreaElement>;
-  mathField: any;
+    @Input() symbols!: SymbolMapping;
 
-  @ViewChild("mqfield") mqinput!: ElementRef<HTMLElement>;
-  MQ: any;
+    aceControl = new FormControl("");
 
-  activeEditor: ActiveEditorType = ActiveEditorType.Visual;
+    @ViewChild("formulaEditor") formulaEditor!: FormulaEditorComponent;
 
-  editHandler(field: any) {
-    if (this.activeEditor === ActiveEditorType.Visual) {
-      let latex = field.latex();
-      this.outputControl.setValue(latex);
+    @ViewChild("textareaElement") textareaElement!: ElementRef<HTMLTextAreaElement>;
+
+    @ViewChild("image") imageElem!: ElementRef<HTMLImageElement>;
+
+    textareaHasFocus: boolean = true;
+
+    uploaded = false;
+    currentRotation = 0;
+
+    setFocus(value: boolean) {
+        this.textareaHasFocus = value;
     }
-  }
 
-  enterHandler(field: any) {
-    console.log("enter")
-  }
+    formulaViewVisible: boolean = true;
 
-  ngAfterViewInit() {
-    let elem = this.mqinput.nativeElement;
-    elem.addEventListener("click", (e: MouseEvent) => {
-      this.activeEditor = ActiveEditorType.Visual;
-    })
-    let config = {
-      spaceBehavesLikeTab: true,
-      handlers: {
-        edit: (field: any) => this.editHandler(field),
-        enter: (field: any) => this.enterHandler(field)
-      }
-    };
-    this.MQ = MathQuill.getInterface(2);
-    let field = this.MQ.MathField(elem, config);
-    this.mathField = field;
-  }
-
-  getSymbols() {
-    return Object.entries(this.symbols);
-  }
-
-  /**
-   * https://stackoverflow.com/questions/9335325/blur-event-stops-click-event-from-working
-   */
-  handleSymbol(name: string) {
-    let { latex } = this.symbols[name];
-    if (this.activeEditor === ActiveEditorType.Visual) {
-      this.mathField.write(latex);
+    getSymbols = () => {
+        return Object.entries(this.symbols);
     }
-    else if (this.activeEditor === ActiveEditorType.Latex) {
-      //insert at current cursor position in the textarea
-      let pos = this.output.nativeElement.selectionStart;
-      let oldValue = this.outputControl.value;
-      let newValue = oldValue?.slice(0, pos) + latex + oldValue?.slice(pos);
-      this.outputControl.setValue(newValue);
+
+    ads: AdItem[] = [];
+    constructor(private adService: AdserviceService) { }
+    ngOnInit(): void {
+        this.aceControl.setValue("#kissa\n\n$$\n\\frac{1}{2}\\\\\n1+1=2\n$$\n\nMuuta");
+        this.ads = this.adService.getAds();
     }
-    // console.log(this.mathField);
-    // console.log(this.mathField.el());
-    // this.mathField.focus();
 
-  }
+    /**
+    * https://stackoverflow.com/questions/9335325/blur-event-stops-click-event-from-working
+    */
+    handleSymbol(name: string) {
+        let { latex } = this.symbols[name];
+        if (this.textareaHasFocus) {
+            this.aceControl.setValue(this.aceControl.value + latex);
+        }
+        else {
+            this.formulaEditor.handleSymbol(latex);
+        }
+        // console.log(this.mathField);
+        // console.log(this.mathField.el());
+        // this.mathField.focus();
+    }
 
-  handleLatexFocus() {
-    this.activeEditor = ActiveEditorType.Latex;
-  }
+    onFileSelected(event: Event) {
+        const target = event.target as HTMLInputElement | null;
+        if (!target || !target.files) {
+            return;
+        }
+        const file: File = target.files[0];
+        this.imageElem.nativeElement.src = URL.createObjectURL(file);
+        this.imageElem.nativeElement.style.transform = `rotate(${this.currentRotation}deg)`;
 
-  handleLatexInput() {
-    this.mathField.latex(this.outputControl.value);
-  }
+        this.uploaded = true;
+    }
 
-  // ngOnInit() {
-  //   //implememts
-  //   // this.output.disable()
-  // }
+    doRotate() {
+        this.currentRotation = (this.currentRotation + 90) % 360;
+        this.imageElem.nativeElement.style.transform = `rotate(${this.currentRotation}deg)`;
+    }
+
+    modify() {
+        const cursorI = this.textareaElement.nativeElement.selectionStart;
+        const text = this.aceControl.value;
+        if (text === null) {
+            return;
+        }
+        let startI = -1;
+        let startSymbol = undefined;
+        let i = 0;
+        while (i < text.length) {
+            if (text.startsWith("$$", i)) {
+                // block end
+                if (startI !== -1 && startSymbol === "$$") {
+                    //between cursor
+                    if (startI <= cursorI && cursorI <= i) {
+                        console.log(startI,i, text.slice(startI+2, i));
+                        return;
+                    }
+                    startI = -1;
+                    startSymbol = undefined;
+                    i += 2;
+                }
+                else { //block start
+                    startI = i;
+                    startSymbol = "$$"
+                    i += 2;
+                }
+            }
+            else if (text.startsWith("$", i)) {
+                // inline end
+                if (startI !== -1 && startSymbol === "$") {
+                    // between cursor
+                    if (startI <= cursorI && cursorI <= i) {
+                        console.log(startI,i, text.slice(startI+1, i));
+                        return;
+                    }
+                    startI = -1;
+                    startSymbol = undefined;
+                    i += 1;
+                }
+                // inline start
+                else {
+                    startI = i;
+                    startSymbol = "$"
+                    i++;
+                }
+
+            }
+            else {
+                i++;
+            }
+        }
+        console.log("not inside formula")
+    }
 }

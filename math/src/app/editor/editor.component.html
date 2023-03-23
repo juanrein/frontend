@@ -1,33 +1,32 @@
-<div class="button-container">
-    <button 
-        class="latex-button"
-        *ngFor="let kv of getSymbols()" 
-        type="button" 
-        title="{{kv[1]['text']}}" 
-        (mousedown)="handleSymbol(kv[0])">
-        {{kv[0]}}
-    </button>
+<!-- <div>
+    <input 
+        type="file" 
+        accept="image/jpeg, image/png, image/jpg" 
+        (change)="onFileSelected($event)" #fileUpload>
+    <div [hidden]="!uploaded" class="image-container">
+        <img src="#" #image>
+        <button (click)="doRotate()">Rotate</button>
+    </div>
+</div> -->
+
+<!-- <app-buttons 
+    [symbols]="getSymbols()" 
+    (buttonPressedEvent)="handleSymbol($event)">
+</app-buttons> -->
+
+<button (click)="modify()">Modify</button>
+
+<div>
+    <app-formula-editor #formulaEditor [aceControl]="aceControl">
+    </app-formula-editor>
 </div>
 
-Active editor: {{activeEditor}}
-
-<div class="container">
-    <div class="input">
-        <h2>Input</h2>
-        <div>
-            <div #mqfield></div>
-        </div>
-    </div>
-
-    <div class="output">
-        <h2>Latex</h2>
-        <textarea name="output" #output cols="30" rows="10" 
-            (click)="handleLatexFocus()" 
-            (keyup)="handleLatexInput()" 
-            [formControl]="outputControl">
-        </textarea>
-    </div>
+<div class="ace">
+    <textarea name="" id="" cols="30" rows="10" (blur)="setFocus(false)" (focus)="setFocus(true)" [formControl]="aceControl" #textareaElement></textarea>
 </div>
 
+<!-- <app-adbanner [ads]="ads"></app-adbanner>
+ -->
 
-<button>Save</button>
+<!-- <button>Save</button>
+ -->

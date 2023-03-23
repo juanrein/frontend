@@ -1,0 +1,23 @@
+<div class="container">
+    <button (click)="addField()">add</button>
+    <button (click)="removeField()">Remove</button>
+    <div class="fields">
+        <div *ngFor="let field of fields; let i=index;">
+            <app-field 
+                [initialValue]="field.latex" 
+                (edited)="handleEdited($event)"
+                (enter)="addField()"
+                (backspace)="removeField()" 
+                [isActive]="i === active"
+                [id]="i">
+            </app-field>
+
+        </div>
+    </div>
+
+    <div class="buttons-container">
+        <button (click)="handleOk()">Ok</button>
+        <button>Cancel</button>
+    </div>
+
+</div>

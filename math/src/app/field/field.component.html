@@ -1,0 +1,5 @@
+<span class="mq-field" (keyup.enter)="enterPressed()" (keyup.backspace)="backspacePressed()" #mqfield></span>
+
+<textarea *ngIf="isActive" [(ngModel)]="currentLatex" #latexTextArea rows="5" (keyup)="handleLatexInput($event)"
+    (click)="handleLatexFocus()">
+</textarea>
