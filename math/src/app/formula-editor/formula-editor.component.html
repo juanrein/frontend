@@ -2,12 +2,13 @@
     <button (click)="addField()">add</button>
     <button (click)="removeField()">Remove</button>
     <div class="fields">
-        <div *ngFor="let field of fields; let i=index;">
+        <div *ngFor="let field of fields; let i=index;" class="field">
             <app-field 
                 [initialValue]="field.latex" 
                 (edited)="handleEdited($event)"
                 (enter)="addField()"
                 (backspace)="removeField()" 
+                (focus)="handleFocus($event)"
                 [isActive]="i === active"
                 [id]="i">
             </app-field>

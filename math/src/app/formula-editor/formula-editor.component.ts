@@ -60,5 +60,12 @@ export class FormulaEditorComponent {
 
     handleEdited(res: Edit) {
         this.fields[res.id].latex = res.latex;
+        this.active = res.id;
     }
+
+    handleFocus(res: Edit) {
+        this.fields[res.id].latex = res.latex;
+        this.active = res.id;
+    }
+
 }

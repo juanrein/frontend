@@ -25,4 +25,14 @@
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    max-height: 30vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
+}
+
+.field {
+    padding: 0.25em;
 }

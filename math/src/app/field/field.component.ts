@@ -29,6 +29,7 @@ export class FieldComponent implements AfterViewInit {
 
   @Input() id!: number;
 
+
   @Input() initialValue!: string
   @Input() 
   get isActive(): boolean {
@@ -38,20 +39,27 @@ export class FieldComponent implements AfterViewInit {
     if (value) {
       setTimeout(() => {
         this.mathField.focus();
-      }, 2);
+      }, 0);
     }
     this._isActive = value;
   }
   private _isActive = false;
 
+  get rows(): number {
+    return this._rows;
+  }
+  set rows(value: number) {
+    this._rows = value;
+  }
+  private _rows = 1;
+
   @Output() edited = new EventEmitter<Edit>();
   @Output() enter = new EventEmitter<void>();
   @Output() backspace = new EventEmitter<void>();
+  @Output() focus = new EventEmitter<Edit>();
 
   ngAfterViewInit(): void {
     this.initializeField();
-
-
   }
 
   initializeField() {
@@ -73,10 +81,16 @@ export class FieldComponent implements AfterViewInit {
     this.mathField.latex(this.initialValue);
   }
 
+  updateRows() {
+    const nrows = this.currentLatex.split("\n").length
+    this.rows = nrows;
+  }
+
   editHandler(field: any) {
     if (this.activeEditor === ActiveEditorType.Visual) {
       this.currentLatex = field.latex();
-      this.edited.emit({ latex: this.currentLatex ?? "", id: this.id });
+      this.edited.emit({ latex: this.currentLatex, id: this.id });
+      this.updateRows();
     }
   }
   enterHandler(field: any) {
@@ -90,7 +104,8 @@ export class FieldComponent implements AfterViewInit {
   handleLatexInput(event: KeyboardEvent) {
     if (this.activeEditor === ActiveEditorType.Latex) {
       this.mathField.latex(this.currentLatex);
-      this.edited.emit({ latex: this.currentLatex ?? "", id: this.id });
+      this.edited.emit({ latex: this.currentLatex, id: this.id });
+      this.updateRows();
     }
   }
 
@@ -102,6 +117,14 @@ export class FieldComponent implements AfterViewInit {
     if (this.currentLatex.length === 0) {
       this.backspace.emit();
     }
+  }
+
+  handleFocus() {
+    this.mqinput.nativeElement.focus();
+    this.focus.emit({
+      latex: this.currentLatex,
+      id: this.id
+    });
   }
 
 }
