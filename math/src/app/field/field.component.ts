@@ -29,7 +29,6 @@ export class FieldComponent implements AfterViewInit {
 
   @Input() id!: number;
 
-
   @Input() initialValue!: string
   @Input() 
   get isActive(): boolean {
@@ -45,13 +44,10 @@ export class FieldComponent implements AfterViewInit {
   }
   private _isActive = false;
 
-  get rows(): number {
-    return this._rows;
+  rows: number = 1;
+  setRows(value: number) {
+    this.rows = value;
   }
-  set rows(value: number) {
-    this._rows = value;
-  }
-  private _rows = 1;
 
   @Output() edited = new EventEmitter<Edit>();
   @Output() enter = new EventEmitter<void>();
@@ -83,7 +79,7 @@ export class FieldComponent implements AfterViewInit {
 
   updateRows() {
     const nrows = this.currentLatex.split("\n").length
-    this.rows = nrows;
+    this.setRows(nrows);
   }
 
   editHandler(field: any) {
